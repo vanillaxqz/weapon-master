@@ -13,6 +13,16 @@ Meta Quest 2 code  1WMHHA73JE3284
 
 # Progress:
 ## Week 1:
+[Video](https://youtu.be/3beTF6MW9gQ)
 - Modeled the map: arena, trees, tori, stairs, floor
 - Modeled wooden katana
 - Imported free assets: skybox, dummy, naginata
+
+## Week 2:
+[Video](https://youtu.be/jLjotvfpmo4)
+- UV unwrap map + added map textures
+- Reduced polygon count of tree bases
+- Reduced polygon count of floor
+- Added new naginata and tree assets + remade their textures
+- Added BGM to main scene
+- Added title screen
