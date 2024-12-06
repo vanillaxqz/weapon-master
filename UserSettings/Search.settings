@@ -69,6 +69,8 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	""
+	"XRI Right"
 	"pres"
 	"right p"
 	"right interaction "

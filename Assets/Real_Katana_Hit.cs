@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Real_Katana_Hit : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public GameObject particlePrefab;
     void Start()
     {

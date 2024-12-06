@@ -26,3 +26,12 @@ Meta Quest 2 code  1WMHHA73JE3284
 - Added new naginata and tree assets + remade their textures
 - Added BGM to main scene
 - Added title screen
+
+## Week 3:
+[Video](https://youtu.be/zHCQWqmqmqA)
+- Volume slider + saved volume preference
+- Persistent bgm between title screen and main scene
+- VFX/SFX for real katana + naginata On Collision
+- Weapons feel better + gravity
+- Locomotion + jump
+- Weapons grab interactable
