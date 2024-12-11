@@ -35,3 +35,23 @@ Meta Quest 2 code  1WMHHA73JE3284
 - Weapons feel better + gravity
 - Locomotion + jump
 - Weapons grab interactable
+
+## Week 4:
+[Video](https://youtu.be/vnuLdA4G3nw)
+- Further improved feeling of the weapons
+- Collider only for the sharp side of the blade
+- Floating weapon selection
+- New dummy collider
+- Naginata two handed grip
+### What should the fighting system look like (not implemented yet):
+#### Single move:
+- animation 
+- guideline
+- start point
+- endpoint
+- time to execute() - how long are we in collision
+- accuracy() - start and end point of collision vs guideline, distance from it, etc
+#### Combat Moves:
+- singlemove[] moves;
+- timebetween moves;
+- aggregate accuracy()

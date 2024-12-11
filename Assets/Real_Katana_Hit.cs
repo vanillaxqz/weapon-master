@@ -2,18 +2,25 @@ using UnityEngine;
 
 public class Real_Katana_Hit : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public GameObject particlePrefab;
+    public AudioSource hitSfx;
+    public GameObject basicHitParticlePrefab;
+
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        hitSfx = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //to add separate sound for hitting table,rock,metal
-        audioSource.Play();
-        Vector3 collisionPoint = collision.contacts[0].point;
-        Instantiate(particlePrefab, collisionPoint, Quaternion.identity);
+        if (hitSfx != null)
+        {
+            hitSfx.Play();
+        }
+
+        if (basicHitParticlePrefab != null)
+        {
+            Vector3 collisionPoint = collision.contacts[0].point;
+            Instantiate(basicHitParticlePrefab, collisionPoint, Quaternion.identity);
+        }
     }
 }
