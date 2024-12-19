@@ -55,3 +55,11 @@ Meta Quest 2 code  1WMHHA73JE3284
 - singlemove[] moves;
 - timebetween moves;
 - aggregate accuracy()
+
+## Week 5:
+[Video](https://youtu.be/to0W9Lldy-0)
+- Now you can cut objects
+- Replaced standard controllers with hand models 
+- Grab and idle animations for hands
+- Retextured Naginata
+- Fixed vfx and sfx for weapons
