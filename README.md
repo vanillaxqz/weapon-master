@@ -63,3 +63,8 @@ Meta Quest 2 code  1WMHHA73JE3284
 - Grab and idle animations for hands
 - Retextured Naginata
 - Fixed vfx and sfx for weapons
+
+## Week 6:
+[Video](https://youtu.be/pA4Rbd_VktY)
+- Radial Menu for movement guides and tatami dummy restoration
+- Katana swing animation for future guidelines

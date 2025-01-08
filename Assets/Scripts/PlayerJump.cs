@@ -26,15 +26,15 @@ public class PlayerJump : MonoBehaviour
     void Update()
     {
         bool isPlayerGrounded = IsGrounded();
-        if (jumpButton.action.WasPressedThisFrame())
+        /*if (jumpButton.action.WasPressedThisFrame())
         {
             Debug.Log("jumpButton pressed");
-        }
+        }*/
 
         if (jumpButton.action.WasPressedThisFrame() && isPlayerGrounded)
         {
             Jump();
-            Debug.Log("JUMPPPP");
+            Debug.Log("JUMP");
         }
         movement.y += gravity * Time.deltaTime;
         cc.Move(movement * Time.deltaTime);

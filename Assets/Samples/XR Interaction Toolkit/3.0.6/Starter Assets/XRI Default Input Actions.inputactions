@@ -2055,6 +2055,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Open Radial Menu",
+                    "type": "Button",
+                    "id": "d9ccf563-f7fd-40e6-bacf-11861b015c30",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2352,6 +2361,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1162e289-dbc1-41db-93da-e021c43706ac",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Radial Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
