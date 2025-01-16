@@ -68,3 +68,8 @@ Meta Quest 2 code  1WMHHA73JE3284
 [Video](https://youtu.be/pA4Rbd_VktY)
 - Radial Menu for movement guides and tatami dummy restoration
 - Katana swing animation for future guidelines
+
+## Week 7:
+[Video](https://youtu.be/fHSj_MpxKn8)
+- Tatami dummy restoration
+- Weapon information panels

@@ -1,0 +1,5 @@
+A:/weapon-master/.utmp/RelWithDebInfo/236v472a/arm64-v8a/CMakeFiles/edit_cache.dir
+A:/weapon-master/.utmp/RelWithDebInfo/236v472a/arm64-v8a/CMakeFiles/rebuild_cache.dir
+A:/weapon-master/.utmp/RelWithDebInfo/236v472a/arm64-v8a/GameActivity/CMakeFiles/game.dir
+A:/weapon-master/.utmp/RelWithDebInfo/236v472a/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+A:/weapon-master/.utmp/RelWithDebInfo/236v472a/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
