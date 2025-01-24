@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.PostProcessing;
+using static Unity.VisualScripting.Metadata;
 
 public class RadialSelection : MonoBehaviour
 {
@@ -104,16 +105,21 @@ public class RadialSelection : MonoBehaviour
             imageComponent.fillAmount = fillAmount;
 
             RectTransform radialRectTransform = spawnedRadialPart.GetComponent<RectTransform>();
-            Vector3 visualCenter = CalculateAdjustedVisualCenter(radialRectTransform, fillAmount, 0.71f);
+            //Vector3 visualCenter = CalculateAdjustedVisualCenter(radialRectTransform, fillAmount, 0.71f);
 
             GameObject radialPartIcon = new GameObject("Radial Part Icon", typeof(Image));
 
             radialPartIcon.transform.SetParent(spawnedRadialPart.transform);
             Image image = radialPartIcon.GetComponent<Image>();
             image.sprite = radialPartIcons[0];
-            radialPartIcon.transform.localPosition = visualCenter;
-            radialPartIcon.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-            radialPartIcon.transform.localRotation = Quaternion.identity;
+            RectTransform iconRectTransform = radialPartIcon.GetComponent<RectTransform>();
+            iconRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            iconRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            iconRectTransform.anchoredPosition = Vector2.zero;
+            iconRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            //radialPartIcon.transform.localPosition = visualCenter;
+            //radialPartIcon.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            //radialPartIcon.transform.localRotation = Quaternion.identity;
             /*RectTransform iconRectTransform = radialPartIcon.GetComponent<RectTransform>();
             iconRectTransform.anchorMin = new Vector2(1, 1);
             iconRectTransform.anchorMax = new Vector2(1, 1);*/

@@ -32,7 +32,7 @@ public class DisplayWeaponInfo : MonoBehaviour
 
     void Update()
     {
-        if (hintSpawnButton.action.WasPressedThisFrame())
+        if (hintSpawnButton.action.IsPressed())
         {
             Debug.Log("hintSpawnButton WasPressedThisFrame");
             if (isKatanaHeld && !isKatanaInfoSpawned)
@@ -50,17 +50,6 @@ public class DisplayWeaponInfo : MonoBehaviour
 
                 isKatanaInfoSpawned = true;
             }
-            else if ((isKatanaHeld && isKatanaInfoSpawned) || !isKatanaHeld)
-            {
-                var katanaImageObject = GameObject.Find("Katana Info Image");
-                if (katanaImageObject != null)
-                {
-                    Destroy(katanaImageObject);
-                }
-
-                isKatanaInfoSpawned = false;
-            }
-
             if (isNaginataHeld && !isNaginataInfoSpawned)
             {
                 GameObject naginataImageObject = new GameObject("Naginata Info Image");
@@ -72,9 +61,22 @@ public class DisplayWeaponInfo : MonoBehaviour
                 RectTransform rectTransform = naginataImageObject.GetComponent<RectTransform>();
                 rectTransform.anchorMin = Vector2.zero;
                 rectTransform.anchorMax = Vector2.one;
-                rectTransform.localPosition = handTransform.localPosition;
+                rectTransform.position = handTransform.position;
 
                 isNaginataInfoSpawned = true;
+            }
+        }
+        else
+        {
+            if ((isKatanaHeld && isKatanaInfoSpawned) || !isKatanaHeld)
+            {
+                var katanaImageObject = GameObject.Find("Katana Info Image");
+                if (katanaImageObject != null)
+                {
+                    Destroy(katanaImageObject);
+                }
+
+                isKatanaInfoSpawned = false;
             }
             else if ((isNaginataHeld && isNaginataInfoSpawned) || !isNaginataHeld)
             {
