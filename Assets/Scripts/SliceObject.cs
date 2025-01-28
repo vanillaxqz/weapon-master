@@ -2,6 +2,7 @@ using UnityEngine;
 using EzySlice;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro; // Import TextMeshPro
 
 public class SliceObject : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SliceObject : MonoBehaviour
     public LayerMask sliceableLayer;
     public float cutForce = 2000f;
     public GameObject objectPrefab; // Assign the prefab in the inspector
+    public TextMeshPro worldText; // Assign the existing world-space TextMeshPro object in Unity Inspector
 
     public List<GameObject> pObjects = new List<GameObject>(); // List for p1 to p5 (3D planes)
 
@@ -35,7 +37,9 @@ public class SliceObject : MonoBehaviour
                 int accuracyScore = ComputeAccuracyScore(angleDifference);
 
                 Debug.Log($"Slice Accuracy Score: {accuracyScore}/10 | Angle Difference: {angleDifference}° | Active Plane: {activePObject.name}");
-                Debug.Log($"Slice Normal: {slicePlaneNormal}, PObject Normal: {pObjectNormal}");
+
+                // Update the world text display with the score
+                UpdateWorldText($"Accuracy: {accuracyScore}/10", hit.point);
             }
             else
             {
@@ -134,5 +138,17 @@ public class SliceObject : MonoBehaviour
     {
         float dotProduct = Mathf.Clamp(Vector3.Dot(normal1, normal2), -1f, 1f);
         return Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+    }
+
+    private void UpdateWorldText(string text, Vector3 position)
+    {
+        if (worldText != null)
+        {
+            worldText.text = text;
+        }
+        else
+        {
+            Debug.LogWarning("World Text is not assigned in the Inspector.");
+        }
     }
 }
