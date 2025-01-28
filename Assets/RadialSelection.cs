@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.PostProcessing;
-using static Unity.VisualScripting.Metadata;
 
 public class RadialSelection : MonoBehaviour
 {
@@ -20,12 +18,21 @@ public class RadialSelection : MonoBehaviour
     public float transparency = 0.5f;
     public Sprite[] radialPartIcons;
 
+    public List<GameObject> kObjects = new List<GameObject>(); // List to hold k1 to k5 objects
+
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
 
     void Start()
     {
-        
+        // Disable all kObjects at the start
+        foreach (GameObject kObject in kObjects)
+        {
+            if (kObject != null)
+            {
+                kObject.SetActive(false);
+            }
+        }
     }
 
     void Update()
@@ -51,6 +58,29 @@ public class RadialSelection : MonoBehaviour
     {
         onPartSelected.Invoke(currentSelectedRadialPart);
         radialPartCanvas.gameObject.SetActive(false);
+
+        // Play animation for the selected kObject
+        if (currentSelectedRadialPart >= 0 && currentSelectedRadialPart < kObjects.Count)
+        {
+            StartCoroutine(PlayKatanaAnimation(kObjects[currentSelectedRadialPart]));
+        }
+    }
+
+    IEnumerator PlayKatanaAnimation(GameObject kObject)
+    {
+        if (kObject != null)
+        {
+            kObject.SetActive(true); // Enable the object
+            Animator animator = kObject.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.Play("katana|Swing"); // Play animation
+            }
+
+            yield return new WaitForSeconds(1f); // Wait for animation duration (adjust if needed)
+
+            kObject.SetActive(false); // Hide the object again
+        }
     }
 
     public void GetSelectedRadialPart()
@@ -63,11 +93,11 @@ public class RadialSelection : MonoBehaviour
         {
             angle += 360;
         }
-        currentSelectedRadialPart = (int)angle * numberRadialParts / 360;
+        currentSelectedRadialPart = (int)(angle * numberRadialParts / 360);
 
         for (int i = 0; i < spawnedParts.Count; ++i)
         {
-            if(i == currentSelectedRadialPart)
+            if (i == currentSelectedRadialPart)
             {
                 spawnedParts[i].GetComponent<Image>().color = Color.blue;
                 spawnedParts[i].transform.localScale = 1.1f * Vector3.one;
@@ -106,10 +136,8 @@ public class RadialSelection : MonoBehaviour
             imageComponent.fillAmount = fillAmount;
 
             RectTransform radialRectTransform = spawnedRadialPart.GetComponent<RectTransform>();
-            //Vector3 visualCenter = CalculateAdjustedVisualCenter(radialRectTransform, fillAmount, 0.71f);
 
             GameObject radialPartIcon = new GameObject("Radial Part Icon", typeof(Image));
-
             radialPartIcon.transform.SetParent(spawnedRadialPart.transform);
             Image image = radialPartIcon.GetComponent<Image>();
             image.sprite = radialPartIcons[0];
@@ -124,6 +152,4 @@ public class RadialSelection : MonoBehaviour
             spawnedParts.Add(spawnedRadialPart);
         }
     }
-
-    
 }
