@@ -102,6 +102,7 @@ public class RadialSelection : MonoBehaviour
 
             Image imageComponent = spawnedRadialPart.GetComponent<Image>();
             float fillAmount = (1 / (float)numberRadialParts) - (angleBetweenPart / 360);
+            Debug.Log("ANGLE: " + angle.ToString() + " | FILL AMOUNT: " + fillAmount.ToString());
             imageComponent.fillAmount = fillAmount;
 
             RectTransform radialRectTransform = spawnedRadialPart.GetComponent<RectTransform>();
@@ -115,38 +116,14 @@ public class RadialSelection : MonoBehaviour
             RectTransform iconRectTransform = radialPartIcon.GetComponent<RectTransform>();
             iconRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
             iconRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            iconRectTransform.anchoredPosition = Vector2.zero;
-            iconRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            //radialPartIcon.transform.localPosition = visualCenter;
-            //radialPartIcon.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-            //radialPartIcon.transform.localRotation = Quaternion.identity;
-            /*RectTransform iconRectTransform = radialPartIcon.GetComponent<RectTransform>();
-            iconRectTransform.anchorMin = new Vector2(1, 1);
-            iconRectTransform.anchorMax = new Vector2(1, 1);*/
-
+            iconRectTransform.localScale = spawnedRadialPart.transform.localScale;
+            iconRectTransform.rotation = spawnedRadialPart.transform.rotation;
+            iconRectTransform.position = spawnedRadialPart.transform.position;
+            iconRectTransform.anchoredPosition = new Vector2(58.6f, 102.7f);
+            iconRectTransform.sizeDelta = new Vector2(75, 75);
             spawnedParts.Add(spawnedRadialPart);
         }
     }
 
-    Vector3 CalculateAdjustedVisualCenter(RectTransform rectTransform, float fillAmount, float weight)
-    {
-        // Assume the image is circular and uses radial fill
-        // Get the radius of the RectTransform
-        float radius = rectTransform.rect.width / 2f;
-
-        // Calculate the angle in radians (middle of the filled arc)
-        float angle = (fillAmount / 2f) * Mathf.PI * 2f;
-
-        // Convert polar coordinates to Cartesian coordinates
-        float x = Mathf.Sin(angle) * radius;
-        float y = Mathf.Cos(angle) * radius;
-
-        // Local position of the visual center
-        Vector3 localVisualCenter = new Vector3(x, y, 0);
-
-        // Weighted adjustment towards the original center
-        Vector3 adjustedCenter = Vector3.Lerp(rectTransform.position, rectTransform.position + localVisualCenter, weight);
-
-        return adjustedCenter;
-    }
+    
 }
