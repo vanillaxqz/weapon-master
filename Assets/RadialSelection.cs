@@ -18,7 +18,8 @@ public class RadialSelection : MonoBehaviour
     public float transparency = 0.5f;
     public Sprite[] radialPartIcons;
 
-    public List<GameObject> kObjects = new List<GameObject>(); // List to hold k1 to k5 objects
+    public List<GameObject> kObjects = new List<GameObject>(); // List for k1 to k5
+    public List<GameObject> pObjects = new List<GameObject>(); // List for p1 to p5
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
@@ -31,6 +32,15 @@ public class RadialSelection : MonoBehaviour
             if (kObject != null)
             {
                 kObject.SetActive(false);
+            }
+        }
+
+        // Disable all pObjects at the start
+        foreach (GameObject pObject in pObjects)
+        {
+            if (pObject != null)
+            {
+                pObject.SetActive(false);
             }
         }
     }
@@ -63,6 +73,15 @@ public class RadialSelection : MonoBehaviour
         if (currentSelectedRadialPart >= 0 && currentSelectedRadialPart < kObjects.Count)
         {
             StartCoroutine(PlayKatanaAnimation(kObjects[currentSelectedRadialPart]));
+        }
+
+        // Ensure only the selected pObject is active, and all others are disabled
+        for (int i = 0; i < pObjects.Count; i++)
+        {
+            if (pObjects[i] != null)
+            {
+                pObjects[i].SetActive(i == currentSelectedRadialPart); // Activate only the selected one
+            }
         }
     }
 
