@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class RadialSelection : MonoBehaviour
 {
@@ -17,21 +19,43 @@ public class RadialSelection : MonoBehaviour
     public UnityEvent<int> onPartSelected;
     public float transparency = 0.5f;
     public Sprite[] radialPartIcons;
+    public GameObject katana;
+    public GameObject naginata;
 
     public List<GameObject> kObjects = new List<GameObject>(); // List for k1 to k5
+    public List<GameObject> nObjects = new List<GameObject>(); // List for n1 to n5
     public List<GameObject> pObjects = new List<GameObject>(); // List for p1 to p5
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
+    private XRGrabInteractable katanaGrabInteractable;
+    private XRGrabInteractable naginataGrabInteractable;
+    private bool isKatanaHeld = false;
+    private bool isNaginataHeld = false;
 
     void Start()
     {
-        // Disable all kObjects at the start
+        katanaGrabInteractable = katana.GetComponent<XRGrabInteractable>();
+        katanaGrabInteractable.selectEntered.AddListener(OnKatanaGrabbed);
+        katanaGrabInteractable.selectExited.AddListener(OnKatanaReleased);
+
+        naginataGrabInteractable = naginata.GetComponent<XRGrabInteractable>();
+        naginataGrabInteractable.selectEntered.AddListener(OnNaginataGrabbed);
+        naginataGrabInteractable.selectExited.AddListener(OnNaginataReleased);
+
+        // Disable all kObjects and nObjects at the start
         foreach (GameObject kObject in kObjects)
         {
             if (kObject != null)
             {
                 kObject.SetActive(false);
+            }
+        }
+        foreach (GameObject nObject in nObjects)
+        {
+            if (nObject != null)
+            {
+                nObject.SetActive(false);
             }
         }
 
@@ -69,10 +93,14 @@ public class RadialSelection : MonoBehaviour
         onPartSelected.Invoke(currentSelectedRadialPart);
         radialPartCanvas.gameObject.SetActive(false);
 
-        // Play animation for the selected kObject
-        if (currentSelectedRadialPart >= 0 && currentSelectedRadialPart < kObjects.Count)
+        // Play animation for the selected kObject or nObjects
+        if (currentSelectedRadialPart >= 0 && currentSelectedRadialPart < kObjects.Count && isKatanaHeld)
         {
             StartCoroutine(PlayKatanaAnimation(kObjects[currentSelectedRadialPart]));
+        }
+        else if (currentSelectedRadialPart >= 0 && currentSelectedRadialPart < nObjects.Count && isNaginataHeld)
+        {
+            StartCoroutine(PlayNaginataAnimation(nObjects[currentSelectedRadialPart]));
         }
 
         // Ensure only the selected pObject is active, and all others are disabled
@@ -99,6 +127,23 @@ public class RadialSelection : MonoBehaviour
             yield return new WaitForSeconds(1f); // Wait for animation duration (adjust if needed)
 
             kObject.SetActive(false); // Hide the object again
+        }
+    }
+
+    IEnumerator PlayNaginataAnimation(GameObject nObject)
+    {
+        if (nObject != null)
+        {
+            nObject.SetActive(true);
+            Animator animator = nObject.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.Play("blade|Swing");
+            }
+
+            yield return new WaitForSeconds(1f);
+
+            nObject.SetActive(false);
         }
     }
 
@@ -170,5 +215,35 @@ public class RadialSelection : MonoBehaviour
             iconRectTransform.sizeDelta = new Vector2(75, 75);
             spawnedParts.Add(spawnedRadialPart);
         }
+    }
+
+    private void OnKatanaGrabbed(SelectEnterEventArgs args)
+    {
+        isKatanaHeld = true;
+    }
+
+    private void OnKatanaReleased(SelectExitEventArgs args)
+    {
+        isKatanaHeld = false;
+    }
+
+    public bool IsKatanaHeld()
+    {
+        return isKatanaHeld;
+    }
+
+    private void OnNaginataGrabbed(SelectEnterEventArgs args)
+    {
+        isNaginataHeld = true;
+    }
+
+    private void OnNaginataReleased(SelectExitEventArgs args)
+    {
+        isNaginataHeld = false;
+    }
+
+    public bool IsNaginataHeld()
+    {
+        return isNaginataHeld;
     }
 }
