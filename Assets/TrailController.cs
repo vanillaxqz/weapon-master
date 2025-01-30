@@ -22,7 +22,7 @@ public class TrailController : MonoBehaviour
         float speed = rb.linearVelocity.magnitude;
         if (speed > speedThreshold)
         {
-            Debug.Log("Speed:" + speed.ToString() + " | " + speedThreshold.ToString());
+            //Debug.Log("Speed:" + speed.ToString() + " | " + speedThreshold.ToString());
 
             // Enable trail
             if (currentTrail != null)

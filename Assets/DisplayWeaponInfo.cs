@@ -61,14 +61,14 @@ public class DisplayWeaponInfo : MonoBehaviour
                 RectTransform rectTransform = naginataImageObject.GetComponent<RectTransform>();
                 rectTransform.anchorMin = Vector2.zero;
                 rectTransform.anchorMax = Vector2.one;
-                rectTransform.position = handTransform.position;
+                rectTransform.localPosition = handTransform.localPosition;
 
                 isNaginataInfoSpawned = true;
             }
         }
         else
         {
-            if ((isKatanaHeld && isKatanaInfoSpawned) || !isKatanaHeld)
+            if (isKatanaHeld && isKatanaInfoSpawned)
             {
                 var katanaImageObject = GameObject.Find("Katana Info Image");
                 if (katanaImageObject != null)
@@ -78,7 +78,7 @@ public class DisplayWeaponInfo : MonoBehaviour
 
                 isKatanaInfoSpawned = false;
             }
-            else if ((isNaginataHeld && isNaginataInfoSpawned) || !isNaginataHeld)
+            else if (isNaginataHeld && isNaginataInfoSpawned)
             {
                 var naginataImageObject = GameObject.Find("Naginata Info Image");
                 if (naginataImageObject != null)

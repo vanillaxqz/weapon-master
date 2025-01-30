@@ -13,6 +13,8 @@ public class SliceObject : MonoBehaviour
     public float cutForce = 2000f;
     public GameObject objectPrefab; // Assign the prefab in the inspector
     public TextMeshPro worldText; // Assign the existing world-space TextMeshPro object in Unity Inspector
+    public ParticleSystem confetti;
+    public AudioSource congrats;
 
     public List<GameObject> pObjects = new List<GameObject>(); // List for p1 to p5 (3D planes)
 
@@ -40,6 +42,12 @@ public class SliceObject : MonoBehaviour
 
                 // Update the world text display with the score
                 UpdateWorldText($"Accuracy: {accuracyScore}/10", hit.point);
+                if(accuracyScore == 10 && confetti != null && congrats != null)
+                {
+                    confetti.Play();
+                    //congrats.pitch = 1.3f;
+                    congrats.Play();
+                }
             }
             else
             {
@@ -50,6 +58,13 @@ public class SliceObject : MonoBehaviour
             Slice(target, slicePlaneNormal);
         }
     }
+
+    /*public IEnumerator TurnOnConfetti()
+    {
+        confetti.Play();
+        yield return new WaitForSeconds(5f);
+        confetti.Stop();
+    }*/
 
     public void Slice(GameObject target, Vector3 slicePlaneNormal)
     {

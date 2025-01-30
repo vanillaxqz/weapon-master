@@ -18,7 +18,8 @@ public class RadialSelection : MonoBehaviour
     public Transform handTransform;
     public UnityEvent<int> onPartSelected;
     public float transparency = 0.5f;
-    public Sprite[] radialPartIcons;
+    public Sprite[] KatanaMoveIcons;
+    public Sprite[] NaginataMoveIcons;
     public GameObject katana;
     public GameObject naginata;
 
@@ -204,14 +205,22 @@ public class RadialSelection : MonoBehaviour
             GameObject radialPartIcon = new GameObject("Radial Part Icon", typeof(Image));
             radialPartIcon.transform.SetParent(spawnedRadialPart.transform);
             Image image = radialPartIcon.GetComponent<Image>();
-            image.sprite = radialPartIcons[0];
+            if (isKatanaHeld)
+            {
+                image.sprite = KatanaMoveIcons[i];
+            }
+            else if (isNaginataHeld)
+            {
+                image.sprite = NaginataMoveIcons[i];
+            }
             RectTransform iconRectTransform = radialPartIcon.GetComponent<RectTransform>();
             iconRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
             iconRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             iconRectTransform.localScale = spawnedRadialPart.transform.localScale;
             iconRectTransform.rotation = spawnedRadialPart.transform.rotation;
+            iconRectTransform.localRotation = Quaternion.Euler(0, 0, -30);
             iconRectTransform.position = spawnedRadialPart.transform.position;
-            iconRectTransform.anchoredPosition = new Vector2(58.6f, 102.7f);
+            iconRectTransform.anchoredPosition = new Vector2(59.7f, 105.2f);
             iconRectTransform.sizeDelta = new Vector2(75, 75);
             spawnedParts.Add(spawnedRadialPart);
         }
